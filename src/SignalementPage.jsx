@@ -9,6 +9,8 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import PetsIcon from '@mui/icons-material/Pets';
 import SecurityIcon from '@mui/icons-material/Security';
+import CategoryGrid from './CategoryGrid';
+import './CategoryGrid.css';
 
 // Nouvelle structure modulaire des catégories, types et formulaires
 const categories = [
@@ -309,119 +311,91 @@ export default function SignalementPage() {
   // Affichage dynamique par étape
   const renderStepContent = () => {
     if (activeStep === 0) {
-      // Catégories
+      // Catégories façon "infos pratiques" 33700.fr, grille CSS Grid responsive 1-2-3 colonnes, gap régulier
       return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 400, width: '100%' }}>
-          <Box sx={{ width: { xs: '100%', sm: '90%', md: '80%', lg: '70%' }, mx: 'auto' }}>
-            <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>Choisissez une catégorie</Typography>
-            <Grid container spacing={6} justifyContent="center" alignItems="stretch">
-              {categories.map((cat) => (
-                <Grid item xs={12} sm={6} md={4} key={cat.id} sx={{ display: 'flex', height: '100%' }}>
-                  <Card
-                    sx={{
-                      cursor: 'pointer',
-                      border: selectedCategory?.id === cat.id ? '2px solid #00008b' : '2px solid transparent',
-                      borderRadius: 4,
-                      boxShadow: 3,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      minHeight: 240,
-                      height: '100%',
-                      width: '100%',
-                      p: 2,
-                      transition: 'transform 0.2s, box-shadow 0.2s, border 0.2s, background 0.2s',
-                      background: selectedCategory?.id === cat.id ? '#e3e8ff' : '#fff',
-                      overflow: 'hidden',
-                      '&:hover': {
-                        boxShadow: 6,
-                        border: '2px solid #00008b',
-                        background: '#f0f4ff',
-                        transform: 'scale(1.04)',
-                      },
-                      ...(selectedCategory?.id === cat.id && {
-                        boxShadow: 8,
-                        background: '#e3e8ff',
-                        border: '2.5px solid #00008b',
-                        transform: 'scale(1.03)'
-                      })
-                    }}
-                    onClick={() => handleSelectCategory(cat)}
-                  >
-                    <Box sx={{ mb: 1, transition: 'color 0.2s', color: selectedCategory?.id === cat.id ? '#00008b' : '#1976d2' }}>
-                      {React.cloneElement(cat.icon, { sx: { fontSize: 48, color: selectedCategory?.id === cat.id ? '#00008b' : '#1976d2', transition: 'color 0.2s' } })}
-                    </Box>
-                    <CardContent sx={{ p: 0, width: '100%' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 700, color: selectedCategory?.id === cat.id ? '#00008b' : '#1976d2', mb: 1, textAlign: 'center', transition: 'color 0.2s', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{cat.label}</Typography>
-                      <Box sx={{ width: '100%', height: '1px', background: '#e0e0e0', my: 1 }} />
-                      <Typography variant="body2" sx={{ color: '#374151', textAlign: 'center', minHeight: 40, maxHeight: 40, overflow: 'hidden', textOverflow: 'ellipsis' }}>{cat.description}</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </Box>
+        <CategoryGrid
+          categories={categories}
+          selectedCategory={selectedCategory}
+          handleSelectCategory={handleSelectCategory}
+        />
       );
     }
     if (activeStep === 1 && selectedCategory) {
-      // Types de la catégorie (blocs encore plus larges, toujours uniformes, sans débordement)
+      // Types de la catégorie (liste verticale, radio, un seul choix)
       return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 400 }}>
-          <Box sx={{ width: '100%', maxWidth: 1600, mx: 'auto' }}>
+          <Box sx={{ width: '100%', maxWidth: 800, mx: 'auto' }}>
             <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>Quel type de signalement&nbsp;?</Typography>
-            <Grid container spacing={6} justifyContent="center" alignItems="stretch">
-              {selectedCategory.types.map((type) => (
-                <Grid item xs={12} sm={6} md={4} key={type.id} sx={{ display: 'flex', height: '100%' }}>
-                  <Card
-                    sx={{
-                      cursor: 'pointer',
-                      border: selectedType?.id === type.id ? '2px solid #00008b' : '2px solid transparent',
-                      borderRadius: 4,
-                      boxShadow: 3,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      minHeight: 320,
-                      maxHeight: 380,
-                      minWidth: 500,
-                      maxWidth: 700,
-                      width: '100%',
-                      height: 350,
-                      p: 2,
-                      transition: 'transform 0.2s, box-shadow 0.2s, border 0.2s, background 0.2s',
-                      background: selectedType?.id === type.id ? '#e3e8ff' : '#fff',
-                      overflow: 'hidden',
-                      '&:hover': {
-                        boxShadow: 6,
-                        border: '2px solid #00008b',
-                        background: '#f0f4ff',
-                        transform: 'scale(1.04)',
-                      },
-                      ...(selectedType?.id === type.id && {
-                        boxShadow: 8,
-                        background: '#e3e8ff',
-                        border: '2.5px solid #00008b',
-                        transform: 'scale(1.03)'
-                      })
-                    }}
-                    onClick={() => handleSelectType(type)}
-                  >
-                    <CardContent sx={{ p: 0, width: '100%', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 700, color: selectedType?.id === type.id ? '#00008b' : '#1976d2', mb: 1, textAlign: 'center', transition: 'color 0.2s', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '100%' }}>{type.label}</Typography>
-                      <Box sx={{ width: '100%', height: '1px', background: '#e0e0e0', my: 1 }} />
-                      <Typography variant="body2" sx={{ color: '#374151', textAlign: 'center', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', textOverflow: 'ellipsis', width: '100%', maxHeight: 100, minHeight: 40, whiteSpace: 'pre-line' }}>{type.description}</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 4, // Augmente l'espace entre les cards (gap plus grand)
+                background: '#f8fafc',
+                borderRadius: 4,
+                p: 3,
+                boxShadow: 6,
+                animation: 'fadeIn 0.7s',
+                '@keyframes fadeIn': {
+                  from: { opacity: 0, transform: 'translateY(30px)' },
+                  to: { opacity: 1, transform: 'none' }
+                }
+              }}
+            >
+              {selectedCategory.types.map((type, idx) => (
+                <Box
+                  key={type.id}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                    p: 2.5,
+                    borderRadius: 3,
+                    boxShadow: selectedType?.id === type.id ? '0 6px 24px 0rgba(216, 230, 244, 0.2)' : '0 1px 6px 0 #1a237e11',
+                    border: selectedType?.id === type.id ? '2.5px solidrgb(176, 213, 249)' : '1.5px solid #e0e0e0',
+                    background: selectedType?.id === type.id ? 'linear-gradient(90deg, #e3eafc 0%, #f8fafc 100%)' : '#fff',
+                    cursor: 'pointer',
+                    transition: 'all 0.28s cubic-bezier(.4,2,.6,1)',
+                    filter: selectedType?.id === type.id ? 'drop-shadow(0 0 8px #1976d2aa)' : 'none',
+                    position: 'relative',
+                    mb: 0, // Plus de marge externe, géré par le gap
+                    animation: `fadeInUp 0.7s ${idx * 0.07}s both`,
+                    // Suppression du changement de couleur/fond au survol
+                    '&:hover, &:focus': {
+                      boxShadow: '0 10px 32px 0 #1976d244',
+                      border: '2.5px solid #1976d2',
+                      background: selectedType?.id === type.id ? 'linear-gradient(90deg, #e3eafc 0%, #f8fafc 100%)' : '#fff',
+                      transform: 'scale(1.025)',
+                      filter: 'drop-shadow(0 0 12px #1976d2bb)',
+                    },
+                    '@keyframes fadeInUp': {
+                      from: { opacity: 0, transform: 'translateY(40px)' },
+                      to: { opacity: 1, transform: 'none' }
+                    }
+                  }}
+                  tabIndex={0}
+                  onClick={() => handleSelectType(type)}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleSelectType(type); }}
+                >
+                  <input
+                    type="radio"
+                    checked={selectedType?.id === type.id}
+                    onChange={() => handleSelectType(type)}
+                    style={{ accentColor: '#1976d2', width: 22, height: 22, marginRight: 16 }}
+                  />
+                  <Box sx={{ flex: 1 }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700, color: selectedType?.id === type.id ? '#1976d2' : '#222', mb: 0.5, fontSize: { xs: 15, sm: 16, md: 17 } }}>
+                      {type.label}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#374151', opacity: 0.85, fontSize: { xs: 12, sm: 13, md: 14 } }}>{type.description}</Typography>
+                  </Box>
+                </Box>
               ))}
-            </Grid>
+            </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
               <Button onClick={handleBack} sx={{ borderRadius: 2, mr: 2 }}>Retour</Button>
               {selectedType && (
-                <Button variant="contained" color="primary" onClick={handleNext} sx={{ borderRadius: 2, fontWeight: 600, px: 4 }}>
+                <Button variant="contained" color="primary" onClick={handleNext} sx={{ borderRadius: 2, fontWeight: 600, px: 4, boxShadow: 4, transition: 'all 0.2s', background: 'linear-gradient(90deg, #1a237e 0%, #1976d2 100%)' }}>
                   Suivant
                 </Button>
               )}

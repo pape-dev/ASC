@@ -1,0 +1,45 @@
+/* CategoryGrid.css : styles inspirés de la grille "Infos pratiques" de 33700.fr */
+
+.fadeInUp {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUp 0.7s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Responsive grid gap et alignement */
+@media (min-width: 600px) {
+  .MuiCard-root {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Effet de survol supplémentaire pour la card */
+.MuiCard-root:hover, .MuiCard-root:focus {
+  box-shadow: 0 8px 36px 0 #1976d244 !important;
+  background: linear-gradient(120deg, #e3eafc 80%, #fff 100%) !important;
+  transform: translateY(-8px) scale(1.045) !important;
+  filter: drop-shadow(0 0 18px #1976d2bb) !important;
+}
+
+/* Icône dans un cercle */
+.MuiCard-root .MuiBox-root {
+  box-shadow: 0 2px 8px 0 #1a237e11;
+}
+
+/* Désactive le bouton "En savoir plus" visuellement */
+.MuiButton-root[disabled] {
+  opacity: 0.7;
+  pointer-events: none;
+}
