@@ -8,6 +8,7 @@ import ForgotPasswordPage from "./ForgotPasswordPage";
 import ProfilePage from "./ProfilePage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import SignalementPage from "./SignalementPage";
+import FormulaireContact from "./FormulaireContact";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
         <Route path="/signalement" element={<SignalementPage />} />
+        <Route path="/contact" element={<FormulaireContact />} />
       </Routes>
     </BrowserRouter>
   );

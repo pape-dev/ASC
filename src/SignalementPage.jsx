@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Container, Paper, Typography, Grid, Button, Alert, TextField, Stepper, Step, StepLabel, MobileStepper, Card, CardContent, Fade } from '@mui/material';
+import { AppBar, Toolbar, Box, Container, Paper, Typography, Grid, Button, Alert, TextField, Stepper, Step, StepLabel, MobileStepper, Card, CardContent, Fade } from '@mui/material';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import PersonIcon from '@mui/icons-material/Person';
@@ -9,6 +9,7 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import PetsIcon from '@mui/icons-material/Pets';
 import SecurityIcon from '@mui/icons-material/Security';
+import { Link } from "react-router-dom";
 
 // Nouvelle structure modulaire des catégories, types et formulaires
 const categories = [
@@ -159,7 +160,6 @@ const categories = [
       {
         id: 'infraction-urbanistique',
         label: 'Infraction urbanistique',
-        description: 'Signalement d’infraction urbanistique.',
         form: [
           { name: 'nature-infraction', label: 'Nature de l’infraction', type: 'text', required: true },
           { name: 'preuve', label: 'Preuve (lien ou fichier)', type: 'text', required: false },
@@ -557,7 +557,7 @@ export default function SignalementPage() {
               left: 0,
               width: '100vw',
               height: '100vh',
-              background: 'rgba(18, 33, 169, 0.1)',
+              background: 'rgba(145, 150, 197, 0.1)',
               zIndex: 1000,
               display: 'flex',
               alignItems: 'center',
@@ -573,7 +573,7 @@ export default function SignalementPage() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 position: 'relative',
-                border: '2px solid #1976d2',
+                border: '2px solidrgb(189, 196, 203)',
                 animation: 'fadeInPopop 0.3s',
               }}>
                 <Box sx={{ width: '100%', mb: 2 }}>
@@ -625,7 +625,7 @@ export default function SignalementPage() {
                 display: 'inline-block',
                 position: 'relative',
                 zIndex: 2,
-                background: 'linear-gradient(90deg, #e3eafc 0%, #1976d2 100%)',
+                background: 'linear-gradient(90deg,rgba(0, 0, 0, 0.26) 0%,rgb(0, 0, 0) 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 fontWeight: 900,
@@ -640,7 +640,7 @@ export default function SignalementPage() {
                 bottom: -8,
                 width: 80,
                 height: 6,
-                background: 'linear-gradient(90deg, #1976d2 0%, #e3eafc 100%)',
+                background: 'linear-gradient(90deg,rgb(192, 198, 204) 0%, #e3eafc 100%)',
                 borderRadius: 8,
                 opacity: 0.18,
                 transform: 'translateX(-50%)',
@@ -788,12 +788,12 @@ export default function SignalementPage() {
                       gap: 2,
                       p: 2.5,
                       borderRadius: 3,
-                      boxShadow: isHovered || isSelected ? '0 8px 32px 0 #1a237e33' : '0 1px 6px 0 #1a237e11',
+                      boxShadow: isHovered || isSelected ? '0 8px 32px 0rgba(28, 28, 32, 0.2)' : '0 1px 6px 0 #1a237e11',
                       border: isHovered || isSelected ? '2.5px solid #1a237e' : '1.5px solid #e0e0e0',
-                      background: isHovered || isSelected ? 'linear-gradient(90deg, #1a237e 0%, #1976d2 100%)' : '#fff',
+                      background: isHovered || isSelected ? 'linear-gradient(90deg,rgb(24, 25, 36) 0%,rgb(2, 13, 28) 100%)' : '#fff',
                       color: isHovered || isSelected ? '#fff' : '#1a237e',
                       cursor: 'pointer',
-                      filter: isHovered || isSelected ? 'drop-shadow(0 0 8px #1976d2aa)' : 'none',
+                      filter: isHovered || isSelected ? 'drop-shadow(0 0 8pxrgba(2, 4, 52, 0.67))' : 'none',
                       position: 'relative',
                       mb: 0,
                       ...tiltStyle,
@@ -939,9 +939,43 @@ export default function SignalementPage() {
     return null;
   };
 
+  // Menu principal (sans bouton Connexion)
+  const menu = (
+    <AppBar position="fixed" color="primary" elevation={0} sx={{ py: 1, mb: 4, background: '#1a237e' }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <img src="/images/jub.png" alt="Logo" style={{ width: 60, marginRight: 16 }} />
+          <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', letterSpacing: 1 }}>
+            Jub - Jubal - Jubanti
+          </Typography>
+        </Box>
+        <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <Button component={Link} to="/" variant="text" sx={{ color: '#fff', fontWeight: 600, mx: 1 }}>
+            Accueil
+          </Button>
+          <Button component={Link} to="/actualites" variant="text" sx={{ color: '#fff', fontWeight: 600, mx: 1 }}>
+            Actualités
+          </Button>
+          <Button component={Link} to="/evenements" variant="text" sx={{ color: '#fff', fontWeight: 600, mx: 1 }}>
+            Evènements
+          </Button>
+          <Button component={Link} to="/suivi" variant="text" sx={{ color: '#fff', fontWeight: 600, mx: 1 }}>
+            Suivi
+          </Button>
+          <Button component={Link} to="/contact" variant="text" sx={{ color: '#fff', fontWeight: 600, mx: 1 }}>
+            Contact
+          </Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
+
   return (
-    <Box sx={{ minHeight: '100vh', background: '#fff', py: 6 }}>
+    <Box sx={{ minHeight: '100vh', background: '#fff', pb: 6 }}>
+      {menu}
+      <Box sx={{ height: { xs: 80, sm: 100 } }} /> {/* Plus d'espace entre le menu et le titre */}
       <Container maxWidth="md">
+        <Box sx={{ height: { xs: 32, sm: 48 } }} /> {/* Espace supplémentaire entre le menu et le titre */}
         <Typography variant="h4" sx={{ fontWeight: 800, color: '#1a237e', mb: 2, textAlign: 'center' }}>
           Signaler une fraude ou un message suspect
         </Typography>
