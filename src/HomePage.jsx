@@ -38,9 +38,9 @@ export default function HomePage() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', background: 'linear-gradient(90deg, #f8fafc 0%, #e3eafc 100%)', pb: 8 }}>
+    <Box sx={{ minHeight: '100vh', width: '100vw', position: 'fixed', top: 0, left: 0, background: 'linear-gradient(90deg, #f8fafc 0%, #e3eafc 100%)', pb: 0, m: 0, zIndex: 0, overflow: 'hidden' }}>
       {/* Header */}
-      <AppBar position="static" color="transparent" elevation={0} sx={{ py: 1 }}>
+      <AppBar position="fixed" color="transparent" elevation={0} sx={{ py: 1 }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <img src="/images/jub.png" alt="Logo" style={{ width: 60, marginRight: 16 }} />
@@ -49,11 +49,21 @@ export default function HomePage() {
             </Typography>
           </Box>
           <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-            <Button component={Link} to="/login" variant="text" sx={{ color: '#1a237e', fontWeight: 600, mx: 1 }}>
-              {t.login}
+            {/* Nouveau menu principal sans inscription, connexion en bleu foncé */}
+            <Button component={Link} to="/actualites" variant="text" sx={{ color: '#1a237e', fontWeight: 600, mx: 1 }}>
+              Actualités
             </Button>
-            <Button component={Link} to="/register" variant="contained" sx={{ background: 'linear-gradient(90deg, #1a237e 0%, #1976d2 100%)', color: '#fff', fontWeight: 600, borderRadius: 2, px: 3, mx: 1, boxShadow: 2 }}>
-              {t.register}
+            <Button component={Link} to="/evenements" variant="text" sx={{ color: '#1a237e', fontWeight: 600, mx: 1 }}>
+              Evènements
+            </Button>
+            <Button component={Link} to="/suivi" variant="text" sx={{ color: '#1a237e', fontWeight: 600, mx: 1 }}>
+              Suivi
+            </Button>
+            <Button component={Link} to="/contact" variant="text" sx={{ color: '#1a237e', fontWeight: 600, mx: 1 }}>
+              Contact
+            </Button>
+            <Button component={Link} to="/login" variant="text" sx={{ color: '#1a237e', fontWeight: 700, mx: 1, background: '#1a237e', color: '#fff', borderRadius: 2, px: 2, py: 0.5, '&:hover': { background: '#111634' } }}>
+              {t.login}
             </Button>
             <label htmlFor="lang-select" style={{ marginLeft: 16, fontWeight: 600, color: '#1a237e' }}>🌐</label>
             <select
@@ -69,8 +79,9 @@ export default function HomePage() {
           </Box>
         </Toolbar>
       </AppBar>
-      {/* Hero Section */}
-      <Container maxWidth="lg" sx={{ mt: 8 }}>
+      <Box sx={{ height: { xs: 56, sm: 64 } }} /> {/* Espace pour compenser la hauteur de l'AppBar */}
+      <Container maxWidth="lg" sx={{ mt: 8, zIndex: 1, position: 'relative' }}>
+        {/* Hero Section */}
         <Grid container spacing={4} alignItems="center" justifyContent="center">
           <Grid item xs={12} md={6}>
             <Typography variant="h2" sx={{ fontWeight: 800, color: '#1a237e', mb: 2, lineHeight: 1.1 }}>
